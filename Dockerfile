@@ -6,11 +6,9 @@ ENV GOPATH /go
 ENV PATH $PATH:$GOROOT/bin:$GOPATH/bin
 
 
-RUN apk add --update \
-        go &&\
-    rm -rf /var/cache/apk/*
-
-
+RUN apk add --no-cache git go \
+	&& go get github.com/CiscoZeus/go-zeusclient \
+	&& apk del git
 
 # Copy the local package files to the container's workspace.
 ADD . /go/src/github.com/golang/example/outyet
